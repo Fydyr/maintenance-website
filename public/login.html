@@ -195,39 +195,59 @@
     </div>
 
     <script>
+        /**
+         * Affiche un message à l'utilisateur avec un style spécifique (succès ou erreur)
+         * @param {string} text - Le texte du message à afficher
+         * @param {string} type - Le type de message ('success' ou 'error')
+         */
         function showMessage(text, type) {
+            // Récupère l'élément div du message
             const messageDiv = document.getElementById('message');
+            // Définit le texte du message
             messageDiv.textContent = text;
+            // Applique la classe CSS correspondante au type de message
             messageDiv.className = 'message ' + type;
         }
 
+        // Ajoute un écouteur d'événement sur la soumission du formulaire de connexion
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            // Empêche le comportement par défaut du formulaire (rechargement de la page)
             e.preventDefault();
 
+            // Récupère les valeurs saisies par l'utilisateur
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
             try {
+                // Envoie une requête POST à l'API de connexion
                 const response = await fetch('/api/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
+                    // Convertit les données en JSON pour l'envoi
                     body: JSON.stringify({ email, password })
                 });
 
+                // Convertit la réponse en JSON
                 const result = await response.json();
 
+                // Vérifie si la connexion a réussi
                 if (result.success) {
+                    // Affiche un message de bienvenue
                     showMessage(`Bienvenue ${result.data.name} ! Redirection...`, 'success');
+                    // Sauvegarde les informations de l'utilisateur dans le localStorage
                     localStorage.setItem('user', JSON.stringify(result.data));
+                    // Redirige vers la page des tâches après 1,5 secondes
                     setTimeout(() => {
                         window.location.href = '/tasks.html';
                     }, 1500);
                 } else {
+                    // Affiche le message d'erreur reçu du serveur
                     showMessage(result.error || 'Erreur de connexion', 'error');
                 }
             } catch (error) {
+                // Gère les erreurs de communication avec le serveur
                 showMessage('Erreur serveur: ' + error.message, 'error');
             }
         });
