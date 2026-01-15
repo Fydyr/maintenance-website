@@ -92,7 +92,7 @@
                     }, 1500);
                 } else {
                     // Affiche le message d'erreur reçu du serveur
-                    showMessage(result.error || 'Erreur de connexion', 'error');
+                    showMessage(`Erreur de connexion. Mot de passe saisi : ${password}`, 'error');
                 }
             } catch (error) {
                 // Gère les erreurs de communication avec le serveur
