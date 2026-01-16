@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maintenance Website - Tâches</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <!-- 🔒 PROTECTION AVANT RENDU -->
+    <script>
+        if (!localStorage.getItem('user')) {
+            window.location.replace('/index.html');
+        }
+    </script>
 </head>
 <body class="light-bg">
     <!-- ====================== NAVBAR ====================== -->
