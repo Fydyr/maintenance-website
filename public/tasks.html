@@ -5,12 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maintenance Website - Tâches</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <!-- 🔒 PROTECTION AVANT RENDU -->
-    <script>
-        if (!localStorage.getItem('user')) {
-            window.location.replace('/index.html');
-        }
-    </script>
 </head>
 <body class="light-bg">
     <!-- ====================== NAVBAR ====================== -->
@@ -196,20 +190,6 @@
 
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => filterTasks(btn.dataset.filter));
-        });
-
-        // ====================== PROTECTION DE PAGE ======================
-        document.addEventListener('DOMContentLoaded', () => {
-            const user = localStorage.getItem('user');
-            if(!user) {
-                allTasks = [];
-                document.getElementById('taskList').innerHTML = '';
-                window.location.href = '/index.html';
-                return;
-            }
-
-            displayUserInfo();
-            loadTasks();
         });
 
     </script>
